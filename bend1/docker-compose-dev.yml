@@ -1,0 +1,31 @@
+version: "3"
+services:
+  bend2:
+    image: bend2:0.0
+    ports:
+      - "5002:5002"
+    networks: 
+      - webnet
+
+  db:
+    image: mysql
+    volumes:
+      - "/home/picci/mysqldata:/var/lib/mysql"
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+    networks: 
+      - webnet
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    networks: 
+      - webnet
+
+networks:
+  webnet:
+
+  

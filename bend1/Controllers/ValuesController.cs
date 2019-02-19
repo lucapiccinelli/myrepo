@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using RestSharp;
 
 namespace bend1.Controllers
 {
@@ -14,7 +15,9 @@ namespace bend1.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            return new string[] { "bend1" };
+            RestClient client = new RestClient("http://localhost:5002/api");
+            var bend2Values = client.Execute<List<string>>(new RestRequest("values"), Method.GET);
+            return new string[] { "bend1", $"bend2-{bend2Values.Data.Last()}"};
         }
 
         // GET api/values/5
