@@ -9,11 +9,15 @@ services:
       MYSQL_ROOT_PASSWORD: example
     network_mode: "host"
 
+
   adminer:
     image: adminer
     restart: always
     ports:
       - 8080:8080
     network_mode: "host"
+
+networks:
+  webnet:
 
   

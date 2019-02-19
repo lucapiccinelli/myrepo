@@ -11,11 +11,19 @@ namespace bend2.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        private readonly MyConfigs _configs;
+
+        public ValuesController(MyConfigs configs)
+        {
+            _configs = configs;
+        }
+        
+
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            using(MySqlConnection connection = new MySqlConnection("server=db;user id=root;password=example;port=3306;database=testdb;"))
+            using(MySqlConnection connection = new MySqlConnection(_configs.Configuration["ConnectionStrings:DefaultConnection"]))
             {
                 connection.Open();
                 var cmd = connection.CreateCommand() as MySqlCommand;
