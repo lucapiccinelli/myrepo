@@ -1,7 +1,7 @@
 version: "3"
 services: 
   bend2:
-    image: bend2:0.0
+    image: lucapiccinelli/bend2:latest
     ports:
       - "5002:5002"
     networks:
