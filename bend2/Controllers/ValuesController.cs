@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using MySql.Data.MySqlClient;
 
 namespace bend2.Controllers
 {
@@ -14,7 +15,22 @@ namespace bend2.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            return new string[] { "bend2" };
+            using(MySqlConnection connection = new MySqlConnection("server=db;user id=root;password=example;port=3306;database=testdb;"))
+            {
+                connection.Open();
+                var cmd = connection.CreateCommand() as MySqlCommand;
+                cmd.CommandText = "select * from test_tb";
+                MySqlDataReader result = cmd.ExecuteReader();
+                int count = 0;
+                List<int> values = new List<int>();
+                while(result.Read())
+                {
+                    int value = (int)result.GetValue(count++);
+                    values.Add(value);
+                }
+                connection.Close();
+                return values.Select(v => v.ToString()).ToArray();
+            }
         }
 
         // GET api/values/5
