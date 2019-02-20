@@ -24,9 +24,9 @@ namespace bend2.Controllers
         public ActionResult<IEnumerable<string>> Get()
         {
             string connectionStr = _configs.Configuration["ConnectionStrings:DefaultConnection"];
+            Console.WriteLine(connectionStr);
             using (MySqlConnection connection = new MySqlConnection(connectionStr))
             {
-                Console.WriteLine(connectionStr);
                 connection.Open();
                 var cmd = connection.CreateCommand() as MySqlCommand;
                 cmd.CommandText = "select * from test_tb";
