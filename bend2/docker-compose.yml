@@ -5,9 +5,9 @@ services:
     ports:
       - "5002:5002"
     networks:
-      - webnet
+      - webnet2
 
-  db:
+  db2:
     image: mysql
     volumes:
       - "/home/picci/mysqldata:/var/lib/mysql"
@@ -16,16 +16,16 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: example
     networks:
-      - webnet
+      - webnet2
 
-  adminer:
+  adminer2:
     image: adminer
     restart: always
     ports:
       - 8080:8080
     networks:
-      - webnet
+      - webnet2
 
 networks:
-      webnet:
+      webnet2:
   
