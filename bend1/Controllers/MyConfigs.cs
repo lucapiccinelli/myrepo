@@ -4,7 +4,7 @@ namespace bend1.Controllers
 {
     public class MyConfigs
     {
-        private IConfiguration Configuration {get; set;}
+        public IConfiguration Configuration {get; set;}
 
         public MyConfigs(IConfiguration configuration)
         {

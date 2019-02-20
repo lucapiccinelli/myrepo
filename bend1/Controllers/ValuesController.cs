@@ -22,9 +22,10 @@ namespace bend1.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            RestClient client = new RestClient("${_configs.Configuration[\"hosts:default\"]}/api");
+            string baseUrl = $@"{(_configs.Configuration["hosts:default"])}/api/";
+            RestClient client = new RestClient(baseUrl);
             var bend2Values = client.Execute<List<string>>(new RestRequest("values"), Method.GET);
-            return new string[] { "bend1", $"bend2-{bend2Values.Data.Last()}"};
+            return new string[] { "bend1", $"bend2-{bend2Values?.Data?.Last()}"};
         }
 
         // GET api/values/5
