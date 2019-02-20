@@ -1,13 +1,13 @@
 version: "3"
 services: 
-  bend2:
-    image: lucapiccinelli/bend2:latest
+  bend1:
+    image: lucapiccinelli/bend1:latest
     ports:
-      - "5002:5002"
+      - "5000:5000"
     networks:
-      - webnet
+      - webnet1
 
-  db:
+  db1:
     image: mysql
     volumes:
       - "/home/picci/mysqldata:/var/lib/mysql"
@@ -16,16 +16,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: example
     networks:
-      - webnet
-
-  adminer:
-    image: adminer
-    restart: always
-    ports:
-      - 8080:8080
-    networks:
-      - webnet
+      - webnet1
 
 networks:
-      webnet:
+      webnet1:
   

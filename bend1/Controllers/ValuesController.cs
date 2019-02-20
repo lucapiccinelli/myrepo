@@ -11,11 +11,18 @@ namespace bend1.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        private readonly MyConfigs _configs;
+
+        public ValuesController(MyConfigs configs)
+        {
+            _configs = configs;
+        }
+
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            RestClient client = new RestClient("http://localhost:5002/api");
+            RestClient client = new RestClient("${_configs.Configuration[\"hosts:default\"]}/api");
             var bend2Values = client.Execute<List<string>>(new RestRequest("values"), Method.GET);
             return new string[] { "bend1", $"bend2-{bend2Values.Data.Last()}"};
         }
