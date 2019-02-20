@@ -23,8 +23,10 @@ namespace bend2.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            using(MySqlConnection connection = new MySqlConnection(_configs.Configuration["ConnectionStrings:DefaultConnection"]))
+            string connectionStr = _configs.Configuration["ConnectionStrings:DefaultConnection"];
+            using (MySqlConnection connection = new MySqlConnection(connectionStr))
             {
+                Console.WriteLine(connectionStr);
                 connection.Open();
                 var cmd = connection.CreateCommand() as MySqlCommand;
                 cmd.CommandText = "select * from test_tb";
