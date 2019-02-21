@@ -1,9 +1,9 @@
 version: "3"
 services: 
   bend2:
-    image: lucapiccinelli/bend2:latest
+    image: bend2:latest
     ports:
-      - "5002:5002"
+      - 5002:5002
     network_mode: "host"
 
   

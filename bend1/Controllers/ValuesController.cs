@@ -23,8 +23,11 @@ namespace bend1.Controllers
         public ActionResult<IEnumerable<string>> Get()
         {
             string baseUrl = $@"{(_configs.Configuration["hosts:default"])}/api/";
+            Console.WriteLine(baseUrl);
             RestClient client = new RestClient(baseUrl);
-            var bend2Values = client.Execute<List<string>>(new RestRequest("values"), Method.GET);
+            RestRequest request = new RestRequest("values");
+            request.AddHeader("Access-Control-Allow-Origin", "*");
+            var bend2Values = client.Execute<List<string>>(request, Method.GET);
             return new string[] { "bend1", $"bend2-{bend2Values?.Data?.Last()}"};
         }
 
