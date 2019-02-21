@@ -1,7 +1,7 @@
 version: "3"
 services: 
   bend1:
-    image: bend1:latest
+    image: lucapiccinelli/bend1:latest
     ports:
       - 5001:5001
     network_mode: "host"
