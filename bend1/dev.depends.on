@@ -1,2 +1,2 @@
-../bend2/docker-compose.yml
+../bend2/internal.depends.on
 docker-compose.dev.yml
