@@ -1,0 +1,7 @@
+version: "3"
+services: 
+  fend:
+    image: fend:latest
+    ports:
+      - 8000:80
+  

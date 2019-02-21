@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <script type="text/javascript" src="Js/jquery-3.3.1.min.js"></script>
+        <script type="text/javascript">
+            function reqListener () {
+                console.log(this.responseText);
+            }
+
+            $( document ).ready(() => {
+                $.ajax({
+                    type: "GET",
+                    contentType: "text/plain",
+                    url: "http://localhost:5001/api/values",
+                    dataType: "text",
+                    headers: {
+                        "Access-Control-Allow-Origin": "*"
+                    },
+                    success: function( data ) {
+                        $( "#bend1" ).html( data );
+                    },
+                });
+
+                
+                $.ajax({
+                    type: "GET",
+                    contentType: "text/plain",
+                    url: "http://localhost:5002/api/values",
+                    dataType: "text",
+                    headers: {
+                        "Access-Control-Allow-Origin": "*"
+                    },
+                    success: function( data ) {
+                        $( "#bend2" ).html( data );
+                    },
+                });
+            });
+        
+        </script>
+    </head>
+    <body>
+        <div>Ciao</div>
+        <div>bend1: <div id="bend1"></div></div>
+        <div>bend2: <div id="bend2"></div></div>
+    </body>
+</html>
