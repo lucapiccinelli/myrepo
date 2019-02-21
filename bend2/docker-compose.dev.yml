@@ -1,23 +1,20 @@
 version: "3"
 services: 
-  db:
+  db2:
     image: mysql
     volumes:
-      - "/home/picci/mysqldata:/var/lib/mysql"
+      - "/home/picci/mysqldata2:/var/lib/mysql"
     command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_ROOT_PASSWORD: example
     network_mode: "host"
 
 
-  adminer:
+  adminer2:
     image: adminer
     restart: always
     ports:
       - 8080:8080
     network_mode: "host"
-
-networks:
-  webnet:
 
   
