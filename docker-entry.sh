@@ -1,27 +1,38 @@
 #!/bin/bash
 
 createList (){
-   for filename in ${@:2}
-   do
-      if [[ $filename == *"depends.on"* ]]
-      then
-         createList $(dirname $filename) $(< $filename)
+   local directoryName=$1
+   local useDevForCurrentProject=$2
+   local listOfDependencies=${@:3}
+   
+   for fileAndDirname in $listOfDependencies; do
+      local dependencyDirname=$(dirname $fileAndDirname)
+      local filename=$(basename $fileAndDirname)
+      local currentDirectory=$(pwd)
+
+      cd $dependencyDirname
+
+      if [[ $filename == *"depends.on"* ]]; then
+         createList $dependencyDirname $useDevForCurrentProject $(< $filename)
       else
-         echo $1/$filename
+         echo $(pwd)/$filename
       fi
+      cd $currentDirectory 
    done
 }
 
 
-listOfDeps=$(< $1)
-listOfCompose=$(createList . $listOfDeps | sort -u)
+dependenciesFilename=$1
+useCurrentProject=${2:-true} 
+
+listOfDeps=$(< $dependenciesFilename)
+listOfCompose=$(createList . $useCurrentProject $listOfDeps | sort -u)
 
 composesStr=""
-for compose in ${listOfCompose[@]}
-do
+for compose in ${listOfCompose[@]}; do
     composesStr+=" -f $compose"
 done
 
 echo $composesStr
 
-docker-compose $composesStr pull --ignore-pull-failures && docker-compose $composesStr up --remove-orphans
+#docker-compose $composesStr pull --ignore-pull-failures && docker-compose $composesStr up --remove-orphans
