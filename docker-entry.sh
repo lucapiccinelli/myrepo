@@ -1,18 +1,16 @@
 #!/bin/bash
 
 createList (){
-   local directoryName=$1
-   local depToExclude=$2
-   local listOfDependencies=${@:3}
+   local depToExclude=$1
+   local listOfDependencies=${@:2}
    
    for fileAndDirname in $listOfDependencies; do
-      local dependencyDirname=$(dirname $fileAndDirname)
       local filename=$(basename $fileAndDirname)
       local currentDirectory=$(pwd)
 
-      cd $dependencyDirname
+      cd $(dirname $fileAndDirname)
       if [[ $filename == *"depends.on"* ]]; then
-         createList $dependencyDirname $depToExclude $(< $filename)
+         createList $depToExclude $(< $filename)
       else
          if [ $(realpath $fileAndDirname) != $depToExclude ]; then
             echo $(pwd)/$filename
@@ -33,7 +31,7 @@ fi
 listOfDeps=$(< $dependenciesFilename)
 
 cd $(dirname $dependenciesFilename)
-listOfCompose=$(createList . $depToExclude $listOfDeps | sort -u)
+listOfCompose=$(createList $depToExclude $listOfDeps | sort -u)
 
 composesStr=""
 for compose in ${listOfCompose[@]}; do
