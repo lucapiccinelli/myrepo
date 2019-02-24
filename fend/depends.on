@@ -1,0 +1,3 @@
+../bend1/depends.on
+../bend2/depends.on
+docker-compose.yml
