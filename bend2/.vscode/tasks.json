@@ -1,0 +1,29 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/bend2.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "startbackend",
+            "type": "shell",
+            "command": "../docker-entry.sh",
+            "args": ["depends.on", "false"],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "dedicated",
+                "showReuseMessage": true,
+                "clear": true
+            }
+        },
+    ]
+}
